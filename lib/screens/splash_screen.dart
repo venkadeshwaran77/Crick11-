@@ -1,3 +1,4 @@
+import 'package:crick11/screens/bottom_nav_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -9,66 +10,43 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
-  void initState(){
-    super.initState();
-  }
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:Colors.white,
-      body:Column(
+      backgroundColor: Colors.white,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            flex:5,
-            child: Stack(
-              children: [
-                Container(
-                width:double.infinity,
-                height:650,
-                decoration:BoxDecoration(
-                  borderRadius:BorderRadius.vertical(
-                  bottom: Radius.circular(100),
-                  ),
-                  color:Colors.blue.shade100,
+          Image.asset(
+            "assets/vector.png",
+            fit: BoxFit.cover,
+            width: 450,
+            height: 590,
+          ),
+          SizedBox(
+            height: 65,
+            width: 346,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xff1f7bb7),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                child:Column(
-                  mainAxisAlignment:MainAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Image.asset(
-                      "assets/c11.png",
-                      fit:BoxFit.cover,
-                      width:450,
-                      height:580,
-                      ),
-                    ),
-                  
-                  
-                ],
-                ),
-                ),
-              ],
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BottomNavScreen()),
+                );
+              },
+              child: Text(
+                "Get Started",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
+          SizedBox(height: 10),
         ],
       ),
     );
   }
-}
-
-class CustomClip extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.lineTo(0, 30);
-    path.lineTo(0, size.height);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width, 30);
-    path.quadraticBezierTo(size.width / 2, -30, 0, 30);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }

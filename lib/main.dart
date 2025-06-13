@@ -1,4 +1,4 @@
-import 'package:crick11/screens/home_screen.dart';
+import 'package:crick11/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main(){
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         colorScheme:ColorScheme.fromSeed(seedColor: Colors.red),
         useMaterial3:false,
       ),
-      home:HomeScreen(),
+      home:SplashScreen(),
     );
   }
 }
