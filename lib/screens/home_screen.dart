@@ -1,5 +1,4 @@
-// ignore_for_file: unused_local_variable
-
+// ignore_for_file: unused_local_variable, non_constant_identifier_names, avoid_types_as_parameter_names
 import 'package:crick11/model/current_match_model.dart';
 import 'package:crick11/services/api_services.dart';
 import 'package:flutter/material.dart';
@@ -12,13 +11,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final ApiServices apiServices = ApiServices();
-  late Future<Currentmatches?> currentmatchData;
-
+  final ApiServices fetchmatches = ApiServices();
+  late Future<CurrentMatches> currentmatchData;
+  // final List <TeamInfo> teams;
+  // bool isLoading = true;
   @override
   void initState() {
-    currentmatchData = apiServices.fetchCurrentMatches();
     super.initState();
+    currentmatchData = fetchmatches.currentmatchData();
+    // print("my data ${currentmatchData}");
+    // isLoading = false;
   }
 
   @override
@@ -45,200 +47,197 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 80),
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: () {},
-                  child: Image.asset(
-                    "assets/search.png",
-                    height: 20,
-                    width: 20,
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 80),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {},
+                    child: Image.asset(
+                      "assets/search.png",
+                      height: 20,
+                      width: 20,
+                    ),
                   ),
-                ),
-                SizedBox(width: 15),
-                GestureDetector(
-                  onTap: () {},
-                  child: Image.asset(
-                    "assets/comment.png",
-                    height: 20,
-                    width: 20,
+                  SizedBox(width: 15),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Image.asset(
+                      "assets/comment.png",
+                      height: 20,
+                      width: 20,
+                    ),
                   ),
-                ),
-                SizedBox(width: 15),
-                GestureDetector(
-                  onTap: () {},
-                  child: Image.asset(
-                    "assets/notification.png",
-                    height: 20,
-                    width: 20,
+                  SizedBox(width: 15),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Image.asset(
+                      "assets/notification.png",
+                      height: 20,
+                      width: 20,
+                    ),
                   ),
-                ),
-                SizedBox(width: 15),
-              ],
+                  SizedBox(width: 15),
+
+                ],
+              ),
             ),
           ),
         ],
       ),
-      body: FutureBuilder(
-        future: currentmatchData,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text("Error: ${snapshot.error}"));
-          } else if (snapshot.hasData) {
-            List<dynamic> currentmatchData = snapshot.data as List<dynamic>;
-             
-            return ListView.builder(
-              itemCount: currentmatchData.length,
-              itemBuilder: (context, index) {
-                var currentmatch = currentmatchData[index];
-                return Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Positioned(
-                          left: 20,
-                          top: 191,
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              margin: EdgeInsets.all(15),
-                              height: 31,
-                              width: 126,
-                              decoration: BoxDecoration(
-                                color: Color(0xffffffff),
-                                borderRadius: BorderRadius.circular(15),
-                                border: Border.all(
-                                  color: Color(0xffd8f2f8),
-                                  width: 3,
-                                ),
-                              ),
-                              child: Center(child: Text("Current matches")),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              GestureDetector(
-                                onTap: () {},
-                                child: Text(
-                                  "See All",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+      body: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Positioned(
+                left: 20,
+                top: 191,
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    margin: EdgeInsets.all(15),
+                    height: 31,
+                    width: 126,
+                    decoration: BoxDecoration(
+                      color: Color(0xffffffff),
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(color: Color(0xffd8f2f8), width: 3),
                     ),
-
-                    Container(
-                      margin: EdgeInsets.all(20),
-                      padding: EdgeInsets.symmetric(
-                        vertical: 20,
-                        horizontal: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Color(0xffd8f2f7),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Color(0xffd8f2f7)),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            "India vs Australia, 1st match",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black87,
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            "Not yet started",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Column(
-                                children: [
-                                  Image.asset(
-                                    "assets/ind.png",
-                                    height: 50,
-                                    width: 50,
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    'India',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                'V / S',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Column(
-                                children: [
-                                  Image.asset(
-                                    "assets/aus.png",
-                                    height: 50,
-                                    width: 50,
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    'Australia',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20),
-                          Text('07/06/25', style: TextStyle(fontSize: 16)),
-                          Text('T20', style: TextStyle(fontSize: 16)),
-                          SizedBox(height: 15),
-                          Text(
-                            'Narendra Modi stadium, Ahmedabad',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.black87,
-                            ),
-                          ),
-                        ],
+                    child: Center(child: Text("Current matches")),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () {},
+                      child: Text(
+                        "See All",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
+                ),
+              ),
+            ],
+          ),
+          FutureBuilder<CurrentMatches>(
+            future: currentmatchData,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error Loading data ${snapshot.error}'),
                 );
-              },
-            );
-          } else {
-            return Center(child: Text("probelem to fetch data"));
-          }
-        },
+              } else if (!snapshot.hasData || snapshot.data!.data.isEmpty) {
+                return Center(child: Text("No Data Found"));
+              } else {
+                final currematch = snapshot.data!.data;
+                
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: currematch.length,
+                    itemBuilder: (context, index) {
+                      final match = currematch[index];
+                      
+                      return Container(
+                        width:200,
+                        margin: EdgeInsets.symmetric(vertical:8,horizontal:25),
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Color(0xffd8f2f7),
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: Color(0xffffffff)),
+                      boxShadow:[
+                        BoxShadow(
+                        color: Colors.black12,
+                            blurRadius: 6,
+                            offset: Offset(0, 4),
+                        ),
+                      ]
+                    ),
+                    child:Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                        match.name,
+                        style:TextStyle(
+                          fontSize:12,
+                        color:Colors.black87,
+                        ),
+                       ),
+                       SizedBox(height:10),
+                       Text(
+                        match.status,
+                        style:TextStyle(
+                          fontSize:16,
+                          fontWeight:FontWeight.w600,
+                        ),
+                       ),
+                       SizedBox(height:10),
+                       if (match.teamInfo.length>=2)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              children: [
+                                Image.network(
+                                  match.teamInfo[0].img,
+                                  height:40,
+                                  width:40,
+                                  errorBuilder:(context,error,StackTrace)=> 
+                                  Icon(Icons.image_not_supported),
+                                ),
+                                SizedBox(height:5),
+                                Text(match.teamInfo[0].shortname),
+                              ],
+                            ),
+                            Text("VS",style:TextStyle(fontWeight:FontWeight.bold)),
+                            Column(
+                              children: [
+                                Image.network(
+                                  match.teamInfo[1].img,
+                                  height:40,
+                                  width:40,
+                                  errorBuilder:(context,error,stackTrace) =>
+                                   Icon(Icons.image_not_supported),
+                                ),
+                                SizedBox(height: 5),
+                               Text(match.teamInfo[1].shortname),
+                              ],
+                            ),
+                          ],
+                          ),
+                          SizedBox(height:20),
+                          Text(
+                        "Starts at: ${DateTime.parse(match.dateTimeGMT).toLocal()}",
+                          style: TextStyle(fontSize: 13, color: Colors.grey[700]),
+                           ),
+                           SizedBox(height:6),
+                           Text(match.date,style:TextStyle(fontSize:16)),
+                           SizedBox(height:6),
+                          Text(match.matchType,style:TextStyle(fontSize:16)),
+                          SizedBox(height:15),
+                          Text(match.venue,style:TextStyle(fontSize:14,
+                          color:Colors.black87)),
+                       ],
+                     ),
+                    );
+                    },
+                  ),
+                );
+              }
+            },
+          ),
+        ],
       ),
     );
   }
