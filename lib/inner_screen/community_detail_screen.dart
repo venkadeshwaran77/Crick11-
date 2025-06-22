@@ -50,6 +50,7 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen> {
             ),
           ),
         ],
+        elevation:0,
       ),
       body:SingleChildScrollView(
         child: Column(
@@ -112,7 +113,8 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen> {
                       borderRadius:BorderRadius.circular(15)
                     ),
                     child:Text(
-                      sportss.sourceIcon),
+                      sportss.sourceIcon
+                      ),
                   ),
                 ],
               ),

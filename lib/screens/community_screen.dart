@@ -59,6 +59,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
             ),
           ),
         ],
+        elevation:0,
       ),
       body: RefreshIndicator(
         onRefresh:_handleRefresh,

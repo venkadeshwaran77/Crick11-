@@ -47,7 +47,9 @@ class _WebviewWidgetState extends State<WebviewWidget> {
             ),
           ),
         ],
+        elevation:0,
       ),
+
       body:WebViewWidget(controller:_controller),
     );
   }

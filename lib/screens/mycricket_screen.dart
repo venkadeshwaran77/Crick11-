@@ -32,6 +32,7 @@ class _MycricketScreenState extends State<MycricketScreen> {
             ),
           ),
         ],
+        elevation:0,
       ),
       body:Center(
         child:Text("My Cricket"),
