@@ -1,7 +1,10 @@
 // ignore_for_file: unused_local_variable, non_constant_identifier_names, avoid_types_as_parameter_names
 import 'package:crick11/inner_screen/match_deatil_screen.dart';
 import 'package:crick11/model/current_match_model.dart';
+import 'package:crick11/screens/search_screen.dart';
 import 'package:crick11/services/api_services.dart';
+import 'package:crick11/widgets/drawer_widget.dart';
+
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -9,13 +12,15 @@ class HomeScreen extends StatefulWidget {
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
-}
+ 
+ }
 
 class _HomeScreenState extends State<HomeScreen> {
   final ApiServices fetchmatches = ApiServices();
   late Future<CurrentMatches> currentmatchData;
   // final List <TeamInfo> teams;
   // bool isLoading = true;
+  
   @override
   void initState() {
     super.initState();
@@ -35,16 +40,19 @@ class _HomeScreenState extends State<HomeScreen> {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        iconTheme:IconThemeData(color:Colors.black),
         backgroundColor: Color(0xffd8f2f7),
-        toolbarHeight: 130,
-        leading: Padding(
-          padding: const EdgeInsets.only(bottom: 80),
-          child: IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.menu),
-            color: Colors.black,
-          ),
-        ),
+        toolbarHeight: 100,
+        // leading: Padding(
+        //   padding: const EdgeInsets.only(bottom: 80),
+        //   // child: IconButton(
+        //   //   onPressed:(){
+           
+        //   //   },
+        //   //   icon: Icon(Icons.menu),
+        //   //   color: Colors.black,
+        //   // ),
+        // ),
         actions: [
           Row(
             children: [
@@ -58,25 +66,22 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Padding(
               padding: const EdgeInsets.only(bottom: 80),
               child: Row(
+                mainAxisAlignment:MainAxisAlignment.spaceEvenly,
                 children: [
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Crick11SearchScreen()),
+                      );
+                    },
                     child: Image.asset(
                       "assets/search.png",
                       height: 20,
                       width: 20,
                     ),
                   ),
-                  SizedBox(width: 15),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Image.asset(
-                      "assets/comment.png",
-                      height: 20,
-                      width: 20,
-                    ),
-                  ),
-                  SizedBox(width: 15),
+                 SizedBox(width: 15),
                   GestureDetector(
                     onTap: () {},
                     child: Image.asset(
@@ -86,14 +91,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   SizedBox(width: 15),
-
+    
                 ],
               ),
             ),
           ),
         ],
       ),
-      body: Column(
+      
+    drawer:DrawerWidget(),
+    body: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -169,9 +176,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                             child: Container(
                               width:200,
-                              margin: EdgeInsets.symmetric(vertical:8,horizontal:25),
-                                                padding: EdgeInsets.all(20),
-                                                decoration: BoxDecoration(
+                            margin: EdgeInsets.symmetric(vertical:8,horizontal:25),
+                            padding: EdgeInsets.all(20),
+                            decoration: BoxDecoration(
                             color: Color(0xffd8f2f7),
                             borderRadius: BorderRadius.circular(14),
                             border: Border.all(color: Color(0xffffffff)),

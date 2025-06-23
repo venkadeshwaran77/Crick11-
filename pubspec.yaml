@@ -40,6 +40,7 @@ dependencies:
   webview_flutter: ^4.13.0
   page_transition: ^2.2.1
   intl: ^0.20.2
+  shimmer: ^3.0.0
 dev_dependencies:
   
   flutter_test:
