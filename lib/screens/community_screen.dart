@@ -3,11 +3,10 @@
 import 'package:crick11/inner_screen/community_detail_screen.dart';
 import 'package:crick11/model/cricket_news_model.dart';
 import 'package:crick11/services/sportsnews_api.dart';
+import 'package:crick11/widgets/drawer_widget.dart';
 import 'package:crick11/widgets/webview_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-
-
 
 class CommunityScreen extends StatefulWidget {
   const CommunityScreen({super.key});
@@ -17,21 +16,23 @@ class CommunityScreen extends StatefulWidget {
 }
 
 class _CommunityScreenState extends State<CommunityScreen> {
+  int selectedIndex = 0;
+  final List<String> tabs = ["Cricket News","BCCI","IPL", "All"];
   late Future<CricketNews> sports;
   final SportsnewsApi apiService = SportsnewsApi();
-  
+
   @override
   void initState() {
     super.initState();
     sports = apiService.fetchCricketNews();
     // print("sportt${sports}");
   }
-  Future<void> _handleRefresh() async {
-  setState(() {
-    sports = apiService.fetchCricketNews();
-  });
-}
 
+  Future<void> _handleRefresh() async {
+    setState(() {
+      sports = apiService.fetchCricketNews();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,16 +40,17 @@ class _CommunityScreenState extends State<CommunityScreen> {
     //  dynamic cricketnewsProvider = Provider.of<CricketNews>(context);
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: Color(0xffd8f2f7),
         toolbarHeight: 90,
-        leading: Padding(
-          padding: const EdgeInsets.only(bottom:80),
-          child: IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.menu),
-            color: Colors.black,
-          ),
-        ),
+        // leading: Padding(
+        //   padding: const EdgeInsets.only(bottom:80),
+        //   child: IconButton(
+        //     onPressed: () {},
+        //     icon: Icon(Icons.menu),
+        //     color: Colors.black,
+        //   ),
+        // ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 100),
@@ -59,23 +61,30 @@ class _CommunityScreenState extends State<CommunityScreen> {
             ),
           ),
         ],
-        elevation:0,
+        elevation: 0,
       ),
-      body: RefreshIndicator(
-        onRefresh:_handleRefresh,
+      drawer: DrawerWidget(),
+      body:RefreshIndicator(
+        onRefresh: _handleRefresh,
         child: FutureBuilder<CricketNews>(
           future: sports,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator(color:Color.fromARGB(255, 1, 22, 46)));
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Color.fromARGB(255, 1, 22, 46),
+                ),
+              );
             } else if (snapshot.hasError) {
-              return Center(child: Text('Error loading data: ${snapshot.error}'));
+              return Center(
+                child: Text('Error loading data: ${snapshot.error}'),
+              );
             } else if (snapshot.hasData) {
               final sport = snapshot.data!.results;
               if (sport.isEmpty) {
                 return const Center(child: Text("No news available"));
               }
-        
+      
               return ListView.builder(
                 physics: AlwaysScrollableScrollPhysics(),
                 itemCount: sport.length,
@@ -86,17 +95,25 @@ class _CommunityScreenState extends State<CommunityScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => CommunityDetailScreen(sportss:sportsData),
+                          builder:
+                              (_) => CommunityDetailScreen(
+                                sportss: sportsData,
+                              ),
                         ),
                       );
                     },
                     child: Container(
                       width: 200,
-                      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 25),
+                      margin: EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 25,
+                      ),
                       decoration: BoxDecoration(
                         color: const Color(0xffffffff),
                         borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: const Color.fromARGB(255, 202, 206, 206)),
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 202, 206, 206),
+                        ),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black12,
@@ -133,7 +150,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                           SizedBox(height: 10),
                           Text(
                             sportsData.title,
-                            textAlign:TextAlign.center,
+                            textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,

@@ -33,13 +33,35 @@ class _Crick11SearchScreenState extends State<Crick11SearchScreen> {
                 suffixIcon: Icon(Icons.qr_code_scanner),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                ),
+                  ),
                 filled: true,
                 fillColor: Colors.white,
+              
               ),
             ),
           ),
         ),
+      ),
+      body:Column(
+        crossAxisAlignment:CrossAxisAlignment.start,
+        children: [
+          Padding(
+          padding:EdgeInsets.all(16),
+          child:Text(
+            "Go To",
+            style:TextStyle(fontSize:18,fontWeight:FontWeight.bold),
+          ),
+          ),
+           Expanded(
+          child:ListView(
+            children: [
+              ListTile(
+                leading:Icon(Icons.stacked_bar_chart),
+              )
+            ],
+          ),
+          ),
+        ],
       ),
     );
   }

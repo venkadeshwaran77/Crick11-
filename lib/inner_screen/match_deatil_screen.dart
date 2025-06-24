@@ -101,7 +101,7 @@ class _MatchDetailScreenState extends State<MatchDetailScreen> {
                   team1.img,
                   team1.shortname,
                   team1Score,
-                  team2Overs,
+                  team1Overs,
                   team1Inning,
                 ),
                 Text(
